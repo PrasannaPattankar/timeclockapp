@@ -1,6 +1,7 @@
 import React from "react";
 
 import {
+  AsyncStorage,
   AppRegistry,
   StyleSheet,
   View,
@@ -14,12 +15,12 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-material-dropdown";
 import Clock from "./Clock";
+
 export default class Attendence extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      PickerValueHolder: "",
-      // dataSource: "",
+      PickerValueHolder: "null",
       isLoading: true
     };
     this.handleLogInPress = this.handleLogInPress.bind(this);
@@ -29,6 +30,7 @@ export default class Attendence extends React.Component {
     this.handleLongBreakOutPress = this.handleLongBreakOutPress.bind(this);
     this.handleLongBreakInPress = this.handleLongBreakInPress.bind(this);
   }
+
   componentDidMount() {
     return fetch(
       "https://devportal.albertapayments.com/timeclockusers/getusers?sid=1097"
@@ -41,7 +43,6 @@ export default class Attendence extends React.Component {
             dataSource: responseJson
           },
           function() {
-            // console.log(responseJson);
             // In this block you can do something with new state.
           }
         );
@@ -71,24 +72,10 @@ export default class Attendence extends React.Component {
   };
 
   render() {
-    console.log("test");
-    // console.log("come here");
-    // let user_id = [
-    //   {
-    //     value: "Prasanna"
-    //   },
-    //   {
-    //     value: "Adrash"
-    //   },
-    //   {
-    //     value: "Prathibha"
-    //   }
-    // ];
-
     if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
-          {/* <ActivityIndicator /> */}
+          <ActivityIndicator />
         </View>
       );
     }
@@ -106,21 +93,17 @@ export default class Attendence extends React.Component {
         <Text style={styles.attendence}>Welcome to Attendence Page</Text>
 
         <View style={styles.employee}>
-          {/* <Dropdown
-            placeholder="Select Employee"
-            data={this.state}
-            style={{ textAlign: "center" }}
-          /> */}
           <Picker
             selectedValue={this.state.PickerValueHolder}
+            prompt="select an employee"
             onValueChange={(itemValue, itemIndex) =>
               this.setState({ PickerValueHolder: itemValue })
             }
           >
-            {this.state.dataSource.map((item, key) => (
+            {this.state.dataSource.data.map((item, key) => (
               <Picker.Item
                 label={item.user_name}
-                value={item.user_name}
+                value={item.user_id}
                 key={key}
               />
             ))}
@@ -187,21 +170,16 @@ const styles = StyleSheet.create({
     color: "darkblue",
 
     borderWidth: 0.1
-
-    //justifyContent: "center",
-    //alignItems: "center"
   },
   employees: {
     color: "darkblue",
     alignItems: "center"
-    // backgroundColor: "blue",
   },
   login: {
     width: "45%",
     margin: 10,
     textAlign: "center",
     borderRadius: 2
-    //flexDirection: "row"
   },
   logout: {
     width: "45%",
@@ -229,15 +207,6 @@ const styles = StyleSheet.create({
     width: "45%",
     margin: 10,
     textAlign: "center"
-    // backgroundColor: "#f15a2c",
-    // paddingVertical: 15,
-    // borderRadius: 10,
-    // height: 50,
-    // marginLeft: 10,
-    // marginRight: 40,
-    // width: "45%",
-    // alignItems: "center",
-    // justifyContent: "center"
   },
   container: {
     flexDirection: "row",
@@ -256,25 +225,17 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   sid: {
-    // borderRadius: 1,
-    // borderWidth: 0.2,
-    // borderColor: "#d6d7da",
-    // marginLeft: "35%",
-    // width: "35%",
-    // //textAlign: "right",
     fontSize: 15,
     marginTop: 5,
     marginBottom: 20,
     alignSelf: "flex-end",
     marginTop: 0,
     position: "absolute"
-    //backgroundColor: "#f15a2c"
   },
   sidtext: {
     marginLeft: "35%",
     width: "35%",
     textAlign: "center",
     fontSize: 15
-    //display: none
   }
 });
