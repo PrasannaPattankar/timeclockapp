@@ -21,7 +21,8 @@ export default class Attendence extends React.Component {
     super(props);
     this.state = {
       PickerValueHolder: "null",
-      isLoading: true
+      isLoading: true,
+      sid: ""
     };
     this.handleLogInPress = this.handleLogInPress.bind(this);
     this.handleLogInPress = this.handleLogInPress.bind(this);
@@ -53,22 +54,142 @@ export default class Attendence extends React.Component {
   }
 
   handleLogInPress = () => {
-    alert("Login success");
+    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid,
+        user_id: this.state.PickerValueHolder,
+        action_tag: "login"
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(JSON.stringify(responseJson));
+        //alert("Login Successfull for the user");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
   handleLogOutPress = () => {
-    alert("Logout success");
+    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid,
+        user_id: this.state.PickerValueHolder,
+        action_tag: "logout"
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(JSON.stringify(responseJson));
+        //alert("Login Successfull for the user");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
   handleShortinPress = () => {
-    alert("Short In success");
+    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid,
+        user_id: this.state.PickerValueHolder,
+        action_tag: "short_break_in"
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(JSON.stringify(responseJson));
+        //alert("Login Successfull for the user");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
   handleShortOutPress = () => {
-    alert("Short Out  Success");
+    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid,
+        user_id: this.state.PickerValueHolder,
+        action_tag: "short_break_out"
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(JSON.stringify(responseJson));
+        //alert("Login Successfull for the user");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
   handleLongBreakOutPress = () => {
-    alert("Long Break Out success");
+    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid,
+        user_id: this.state.PickerValueHolder,
+        action_tag: "long_break_out"
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(JSON.stringify(responseJson));
+        //alert("Login Successfull for the user");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
   handleLongBreakInPress = () => {
-    alert("Long Break In success");
+    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid,
+        user_id: this.state.PickerValueHolder,
+        action_tag: "long_break_in"
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(JSON.stringify(responseJson));
+        //alert("Login Successfull for the user");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   render() {
@@ -86,7 +207,9 @@ export default class Attendence extends React.Component {
           {/* <Text style={styles.sidtext}>Enter SID</Text> */}
           <TextInput
             placeholder="SID:1097"
-            onChangeText={text => this.setState({ text })}
+            onChangeText={TextInputValue =>
+              this.setState({ sid: TextInputValue })
+            }
           />
         </View>
 
@@ -95,11 +218,11 @@ export default class Attendence extends React.Component {
         <View style={styles.employee}>
           <Picker
             selectedValue={this.state.PickerValueHolder}
-            prompt="select an employee"
             onValueChange={(itemValue, itemIndex) =>
               this.setState({ PickerValueHolder: itemValue })
             }
           >
+            <Picker.Item label="Select User" value="0" key="-1" />
             {this.state.dataSource.data.map((item, key) => (
               <Picker.Item
                 label={item.user_name}
@@ -122,11 +245,11 @@ export default class Attendence extends React.Component {
           </View>
         </View>
         <View style={styles.containertwo}>
-          <View style={styles.shortin}>
-            <Button title="ShortIn" onPress={this.handleShortinPress} />
-          </View>
           <View style={styles.shortout}>
             <Button title="ShortOut" onPress={this.handleShortOutPress} />
+          </View>
+          <View style={styles.shortin}>
+            <Button title="ShortIn" onPress={this.handleShortinPress} />
           </View>
         </View>
         <View style={styles.containerthree}>
