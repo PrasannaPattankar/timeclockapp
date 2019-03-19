@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Image
 } from "react-native";
+import { Header } from "react-native-elements";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Entypo from "react-native-vector-icons/Entypo";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -18,6 +19,15 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AntDesignn from "react-native-vector-icons/FontAwesome";
 
 export default class Dashboard extends React.Component {
+  static navigationOptions = {
+    headerTitle: (
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <Text style={{ color: "blue", textAlign: "center", fontSize: 15 }}>
+          Welcome to TimeClock Application
+        </Text>
+      </View>
+    )
+  };
   constructor(props) {
     super(props);
     this.handleWorkHoursPress = this.handleWorkHoursPress.bind(this);
@@ -36,9 +46,10 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.timeclock}>Welcome to TimeClock Application</Text>
-        </View>
+        {/* <View style={styles.header}> */}
+
+        {/* <Text style={styles.timeclock}>Welcome to TimeClock Application</Text> */}
+        {/* </View> */}
         <SafeAreaView style={styles.safeAreaView}>
           <View flexDirection="row">
             <LinearGradient
