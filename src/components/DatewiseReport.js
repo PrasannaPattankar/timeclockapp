@@ -24,7 +24,7 @@ import {
 
 const state = {
   tableHead: [
-    "Employee Id",
+    "Employee Name",
     "Total Working Hours",
     "Break Hours",
     "Productive Hours"

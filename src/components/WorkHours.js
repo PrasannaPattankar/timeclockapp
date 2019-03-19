@@ -20,7 +20,7 @@ import AntDesignn from "react-native-vector-icons/FontAwesome";
 
 const state = {
   tableHead: [
-    "Employee Id",
+    "Employee Name",
     "Total Working Hours",
     "Break Hours",
     "Productive Hours"

@@ -10,11 +10,14 @@ import {
   ActivityIndicator,
   Alert,
   Button,
+  TouchableOpacity,
   TextInput,
   Text
 } from "react-native";
+import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 import { Dropdown } from "react-native-material-dropdown";
 import Clock from "./Clock";
+import AwesomeButton from "react-native-really-awesome-button";
 
 export default class Attendence extends React.Component {
   constructor(props) {
@@ -238,32 +241,47 @@ export default class Attendence extends React.Component {
 
         <View style={styles.container}>
           <View style={styles.login}>
+            {/* <AwesomeButton progress onPress={this.handleLogInPress}>
+              Login
+            </AwesomeButton> */}
+
             <Button title="Login" onPress={this.handleLogInPress} />
           </View>
-          <View style={styles.logout}>
-            <Button title="Logout" onPress={this.handleLogOutPress} />
-          </View>
         </View>
+
         <View style={styles.containertwo}>
           <View style={styles.shortout}>
-            <Button title="ShortOut" onPress={this.handleShortOutPress} />
+            <Button
+              title="Short Break Out"
+              onPress={this.handleShortOutPress}
+              color={"#ccc"}
+            />
           </View>
           <View style={styles.shortin}>
-            <Button title="ShortIn" onPress={this.handleShortinPress} />
+            <Button title="Short Break In" onPress={this.handleShortinPress} />
           </View>
         </View>
         <View style={styles.containerthree}>
           <View style={styles.longbreakout}>
             <Button
-              title="LongBreakOut"
+              title="Long Break Out"
               onPress={this.handleLongBreakOutPress}
               //style={{ color: "white" }}
             />
           </View>
           <View style={styles.longbreakin}>
             <Button
-              title="LongBreakIn!"
+              title="Long Break In"
               onPress={this.handleLongBreakInPress}
+            />
+          </View>
+        </View>
+        <View style={styles.containerfour}>
+          <View style={styles.logout}>
+            <Button
+              title="Logout"
+              onPress={this.handleLogOutPress}
+              //style={{ backgroundColor: "#ccc", width: 20, height: 20 }}
             />
           </View>
         </View>
@@ -299,15 +317,16 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   login: {
-    width: "45%",
+    width: "50%",
     margin: 10,
     textAlign: "center",
     borderRadius: 2
   },
   logout: {
-    width: "45%",
+    width: "50%",
     margin: 10,
-    textAlign: "center"
+    textAlign: "center",
+    backgroundColor: "#9d9d9d"
   },
   shortout: {
     width: "45%",
@@ -333,19 +352,28 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
-    marginTop: 15
+    //flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10
   },
   containertwo: {
     flexDirection: "row",
-    marginTop: 15
+    marginTop: 10
   },
   containerthree: {
     flexDirection: "row",
-    marginTop: 15
+    marginTop: 10
   },
-  containerthree: {
+  containerfour: {
     flexDirection: "row",
-    marginTop: 15
+    //flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    color: "#9d9d9d"
   },
   sid: {
     fontSize: 15,
