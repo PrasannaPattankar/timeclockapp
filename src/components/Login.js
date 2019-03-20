@@ -1,19 +1,27 @@
-import React from 'react';
+import React from "react";
 import {
-  TextInput, StyleSheet, Button, View, Image, Text, ImageBackground, KeyboardAvoidingView,
-  TouchableOpacity, StatusBar, Platform, SafeAreaView, AsyncStorage,
-} from 'react-native';
+  TextInput,
+  StyleSheet,
+  Button,
+  View,
+  Image,
+  Text,
+  ImageBackground,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  StatusBar,
+  Platform,
+  SafeAreaView,
+  AsyncStorage
+} from "react-native";
 
-import Icon from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
-import { CheckBox } from 'react-native-elements'
+import Icon from "react-native-vector-icons/Feather";
+import Entypo from "react-native-vector-icons/Entypo";
+import { CheckBox } from "react-native-elements";
 
-
-import PasswordInputText from 'react-native-hide-show-password-input';
-
+import PasswordInputText from "react-native-hide-show-password-input";
 
 export default class Login extends React.Component {
-
   constructor() {
     super();
 
@@ -22,77 +30,57 @@ export default class Login extends React.Component {
       password: "",
       hidePassword: true,
       check: true
-    }
+    };
   }
-
 
   managePasswordVisibility = () => {
     this.setState({ hidePassword: !this.state.hidePassword });
-  }
+  };
 
   // static navigationOptions = {
 
   // header: { visible:false } };
 
-
-
-
-
-
   // };
 
-
-
   getUserDetails = () => {
-
-
-
-    const value = AsyncStorage.getItem('responseTokenKey');
+    const value = AsyncStorage.getItem("responseTokenKey");
     alert(value);
     if (value !== null) {
       // We have data!!
 
       //  alert(value);
 
-      fetch('https://devportal.albertapayments.com/api/me?', {
-        method: 'POST',
+      fetch("https://devportal.albertapayments.com/api/me?", {
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          token: value,
-
-
-        }),
-      }).then((response) => response.json())
-        .then((responseJson) => {
+          token: value
+        })
+      })
+        .then(response => response.json())
+        .then(responseJson => {
           alert("User Details Coming");
           if (responseJson.error) {
-            alert(responseJson.error)
-
+            alert(responseJson.error);
           }
           if (responseJson.user) {
             // alert(responseJson.user);
             //   alert("User Details Coming");
-
           }
-
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
-
     }
-  }
-
-
-
+  };
 
   Nextscreen = () => {
-
     //  this.addcustomer();
-    this.props.navigation.navigate('Dashboard_screen');
+    this.props.navigation.navigate("Dashboard_screen");
     //  console.log("Login Tapped");
 
     //  alert('Under development')
@@ -107,7 +95,6 @@ export default class Login extends React.Component {
     //   body: JSON.stringify({
     //     email: this.state.username,
     //     password: this.state.password
-
 
     //   }),
     // }).then((response) => response.json())
@@ -128,24 +115,23 @@ export default class Login extends React.Component {
     //   .catch((error) => {
     //     console.error(error);
     //   });
-
-  }
+  };
   static navigationOptions = {
-
-    Title: 'Home',
+    Title: "Home",
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Image source={require('../images/poslogo.jpg')}
-          style={{ height: 42, width: '50%', resizeMode: 'contain' }} />
+        <Image
+          source={require("../images/poslogo.jpg")}
+          style={{ height: 42, width: "50%", resizeMode: "contain" }}
+        />
       </View>
     )
-  }
-
+  };
 
   render() {
     return (
       // <View style={styles.safeAreaView}>
-      // {/* // <ImageBackground source ={require('C:/Users/Lenovo 1/Desktop/react_native/login/assets/white1.jpg')}  
+      // {/* // <ImageBackground source ={require('C:/Users/Lenovo 1/Desktop/react_native/login/assets/white1.jpg')}
       // // <SafeAreaView style={styles.safeAreaView}>
       // // <CardView
       // //           cardElevation={4}
@@ -156,46 +142,62 @@ export default class Login extends React.Component {
 
       // <StatusBar barStyle = "light-content"/>
 
-
-      <KeyboardAvoidingView behavior="position" enabled style={styles.formcontainer}>
-
+      <KeyboardAvoidingView
+        behavior="position"
+        enabled
+        style={styles.formcontainer}
+      >
+        <View style={styles.headerTime}>
+          <Text style={{ textAlign: "center", fontSize: 22, color: "blue" }}>
+            Time Clock Application
+          </Text>
+        </View>
         <View style={styles.inputbar}>
-
-          <View style={{
-            height: 40, width: "10%",
-            alignItems: 'center', justifyContent: 'center', backgroundColor: '#286fb7',
-            borderRightWidth: 1, borderRightColor: '#ebebeb',
-            borderTopLeftRadius: 3, borderBottomLeftRadius: 3,
-          }}>
+          <View
+            style={{
+              height: 40,
+              width: "10%",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#286fb7",
+              borderRightWidth: 1,
+              borderRightColor: "#ebebeb",
+              borderTopLeftRadius: 3,
+              borderBottomLeftRadius: 3
+            }}
+          >
             <Icon name="user" size={16} color="#fff" />
           </View>
           <TextInput
             style={styles.input}
             placeholder="User Name (Email)"
-            placeholderTextColor='white'
+            placeholderTextColor="white"
             returnKeyType="next"
             keyboardType="default"
             autoCapitalize="none"
             autoCorrect={false}
             onSubmitEditing={() => this.PasswordInput.focus()}
-            onChangeText={(username) => this.setState({ username })}
+            onChangeText={username => this.setState({ username })}
             value={this.state.username}
-
           />
-
         </View>
-
 
         {/* <View style = { styles.textBoxBtnHolder }> */}
 
         <View style={styles.inputbarr}>
-          <View style={{
-            height: 40, width: "10%",
-            alignItems: 'center', borderTopLeftRadius: 3,
-            borderBottomLeftRadius: 3, justifyContent: 'center',
-            borderRightWidth: 1, borderRightColor: '#ebebeb',
-            backgroundColor: '#286fb7'
-          }}>
+          <View
+            style={{
+              height: 40,
+              width: "10%",
+              alignItems: "center",
+              borderTopLeftRadius: 3,
+              borderBottomLeftRadius: 3,
+              justifyContent: "center",
+              borderRightWidth: 1,
+              borderRightColor: "#ebebeb",
+              backgroundColor: "#286fb7"
+            }}
+          >
             <Icon name="lock" size={16} color="#fff" />
           </View>
 
@@ -204,23 +206,22 @@ export default class Login extends React.Component {
             placeholder="Password"
             returnKeyType="go"
             secureTextEntry={this.state.hidePassword}
-            ref={(input) => this.PasswordInput = input}
-            onChangeText={(password) => this.setState({ password })}
+            ref={input => (this.PasswordInput = input)}
+            onChangeText={password => this.setState({ password })}
             value={this.state.password}
-            placeholderTextColor='white'
-
+            placeholderTextColor="white"
           />
 
-
-
-
-
-          <TouchableOpacity activeOpacity={0.8}
+          <TouchableOpacity
+            activeOpacity={0.8}
             style={styles.visibilityBtn}
-            onPress={this.managePasswordVisibility}>
-            <Entypo name={(this.state.hidePassword) ? "eye-with-line" : "eye"}
-              size={25} color="#fff">
-            </Entypo>
+            onPress={this.managePasswordVisibility}
+          >
+            <Entypo
+              name={this.state.hidePassword ? "eye-with-line" : "eye"}
+              size={25}
+              color="#fff"
+            />
             {/* <Image source = { ( this.state.hidePassword ) 
             ? require('../images/hide.png') 
             : require('../images/show.png') } 
@@ -230,11 +231,9 @@ export default class Login extends React.Component {
 
         {/* </View> */}
 
-
         <TouchableOpacity style={styles.btncontainer} onPress={this.Nextscreen}>
           <Text style={styles.btntext}>Login</Text>
         </TouchableOpacity>
-
 
         {/* <CheckBox
       value={this.state.checked}
@@ -246,18 +245,15 @@ export default class Login extends React.Component {
           <CheckBox
             checkedIcon={<Icon name="check-square" size={25} color="#f15a2c" />}
             uncheckedIcon={<Icon name="square" size={25} color="#286fb7" />}
-            title='Save Password'
-
+            title="Save Password"
             checked={this.state.checked}
-            onPress={() => this.setState({ checked: !this.state.checked })}>
-          </CheckBox>
+            onPress={() => this.setState({ checked: !this.state.checked })}
+          />
         </View>
         {/*     
     <View style={{marginRight : 50,margingStart: 5}}>
     <Text style={{marginTop: 10,fontSize : 18,}}> Save Password</Text>
     </View> */}
-
-
       </KeyboardAvoidingView>
     );
   }
@@ -265,72 +261,70 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   formcontainer: {
-    marginTop: 150,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    paddingTop: (Platform.OS === 'ios') ? 20 : 0
+    marginTop: 70,
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingTop: Platform.OS === "ios" ? 20 : 0
+  },
+  headerTime: {
+    marginTop: 10,
+    marginBottom: 60
   },
   textBoxBtnHolder: {
-    flexDirection: 'row',
+    flexDirection: "row"
   },
 
-  checkboxstyle: {
-
-
-  },
+  checkboxstyle: {},
 
   container: {
     flexGrow: 1,
-    backgroundColor: '#FAFBFD'
+    backgroundColor: "#FAFBFD"
   },
   SafeAreaView: {
     flex: 1,
-    backgroundColor: '#16a0db'
+    backgroundColor: "#16a0db"
   },
   bcontainer: {
     padding: 10,
-    justifyContent: 'center',
-    marginBottom: 0,
+    justifyContent: "center",
+    marginBottom: 0
   },
 
   logocontainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
     marginBottom: 20,
-    justifyContent: 'center'
+    justifyContent: "center"
   },
   inputbar: {
     marginStart: 10,
     marginEnd: 10,
-    flexDirection: 'row',
-
+    flexDirection: "row"
   },
   inputbarr: {
     marginStart: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginEnd: 10,
     marginTop: 5
   },
   seprator: {
     borderBottomWidth: 0.8,
-    borderBottomColor: '#ebebeb',
+    borderBottomColor: "#ebebeb",
     marginBottom: 5,
     marginTop: 5
   },
 
-  visibilityBtn:
-  {
-    position: 'absolute',
+  visibilityBtn: {
+    position: "absolute",
     right: 15,
     height: 40,
     width: 35,
-    padding: 5,
-
+    padding: 5
   },
   logo: {
     width: 200,
     height: 200,
-    resizeMode: 'contain',
+    resizeMode: "contain"
   },
   input: {
     //width: 250,
@@ -339,35 +333,34 @@ const styles = StyleSheet.create({
     width: "90%",
     marginEnd: 10,
     borderRadius: 3,
-    backgroundColor: '#636466',
+    backgroundColor: "#636466",
     marginBottom: 10,
-    color: '#fff',
+    color: "#fff",
     fontSize: 15,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
-  btnImage:
-  {
-    resizeMode: 'contain',
-    height: '100%',
-    width: '100%'
+  btnImage: {
+    resizeMode: "contain",
+    height: "100%",
+    width: "100%"
   },
 
   btncontainer: {
-    backgroundColor: '#f15a2c',
+    backgroundColor: "#f15a2c",
     paddingVertical: 15,
     borderRadius: 10,
     height: 50,
     marginStart: "28%",
     width: "45%",
     marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   btntext: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 17,
-    alignItems: 'center',
-    color: '#fff',
-  },
+    alignItems: "center",
+    color: "#fff"
+  }
 });
