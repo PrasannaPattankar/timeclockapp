@@ -91,7 +91,7 @@ export default class Clock extends Component {
     return (
       <View>
         <StatusBar style={{ backgroundColor: "transparent" }} />
-        <Text style={{ color: "darkblue", fontSize: 20 }}>
+        <Text style={{ color: "darkblue", fontSize: 20, textAlign: "center" }}>
           {this.state.date},{this.state.time}
         </Text>
 

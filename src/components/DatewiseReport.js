@@ -23,15 +23,23 @@ import {
 } from "react-native-table-component";
 
 const state = {
-  tableHead: [
-    "Employee Name",
-    "Total Working Hours",
-    "Break Hours",
-    "Productive Hours"
-  ],
-  tableData: [["1", "9", "2", "7"], ["2", "10", "2", "8"], ["3", "9", "1", "8"]]
+  tableHead: ["Employee Name", "Date", "Total Working Hours", "Break Hours"],
+  tableData: [
+    ["Prasanna", "20-Mar-2019", "9", "2"],
+    ["Suresh", "20-Mar-2019", "10", "2"],
+    ["Priya", "20-Mar-2019", "9", "1"]
+  ]
 };
 export default class DateWiseReport extends React.Component {
+  static navigationOptions = {
+    headerTitle: (
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
+          Alberta Time Clock
+        </Text>
+      </View>
+    )
+  };
   constructor(props) {
     super(props);
   }

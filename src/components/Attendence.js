@@ -20,6 +20,16 @@ import Clock from "./Clock";
 import AwesomeButton from "react-native-really-awesome-button";
 
 export default class Attendence extends React.Component {
+  static navigationOptions = {
+    headerTitle: (
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
+          Alberta Time Clock
+        </Text>
+      </View>
+    )
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -71,9 +81,14 @@ export default class Attendence extends React.Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        Alert.alert(JSON.stringify(responseJson));
-        //alert("Login Successfull for the user");
+        if (responseJson.status == "ok") {
+          Alert.alert(JSON.stringify(responseJson.message));
+        } else {
+          alert(JSON.stringify(responseJson.error));
+          //alert("You have already Logged In for today");
+        }
+
+        //  if(this.state.message.status=='error')
       })
       .catch(error => {
         console.error(error);
@@ -94,9 +109,11 @@ export default class Attendence extends React.Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        Alert.alert(JSON.stringify(responseJson));
-        //alert("Login Successfull for the user");
+        if (responseJson.status == "ok") {
+          Alert.alert(JSON.stringify(responseJson.message));
+        } else {
+          alert(JSON.stringify(responseJson.error));
+        }
       })
       .catch(error => {
         console.error(error);
@@ -117,9 +134,11 @@ export default class Attendence extends React.Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        Alert.alert(JSON.stringify(responseJson));
-        //alert("Login Successfull for the user");
+        if (responseJson.status == "ok") {
+          Alert.alert(JSON.stringify(responseJson.message));
+        } else {
+          alert(JSON.stringify(responseJson.error));
+        }
       })
       .catch(error => {
         console.error(error);
@@ -140,9 +159,11 @@ export default class Attendence extends React.Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        Alert.alert(JSON.stringify(responseJson));
-        //alert("Login Successfull for the user");
+        if (responseJson.status == "ok") {
+          Alert.alert(JSON.stringify(responseJson.message));
+        } else {
+          alert(JSON.stringify(responseJson.error));
+        }
       })
       .catch(error => {
         console.error(error);
@@ -163,9 +184,11 @@ export default class Attendence extends React.Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        Alert.alert(JSON.stringify(responseJson));
-        //alert("Login Successfull for the user");
+        if (responseJson.status == "ok") {
+          Alert.alert(JSON.stringify(responseJson.message));
+        } else {
+          alert(JSON.stringify(responseJson.error));
+        }
       })
       .catch(error => {
         console.error(error);
@@ -186,9 +209,11 @@ export default class Attendence extends React.Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        Alert.alert(JSON.stringify(responseJson));
-        //alert("Login Successfull for the user");
+        if (responseJson.status == "ok") {
+          alert("Succesfully Long break in");
+        } else {
+          alert(JSON.stringify(responseJson.error));
+        }
       })
       .catch(error => {
         console.error(error);
@@ -216,7 +241,7 @@ export default class Attendence extends React.Component {
           />
         </View>
 
-        <Text style={styles.attendence}>Welcome to Attendence Page</Text>
+        <Text style={styles.attendence}>Attendance</Text>
 
         <View style={styles.employee}>
           <Picker
@@ -245,7 +270,11 @@ export default class Attendence extends React.Component {
               Login
             </AwesomeButton> */}
 
-            <Button title="Login" onPress={this.handleLogInPress} />
+            <Button
+              title="Login"
+              onPress={this.handleLogInPress}
+              color={"#286fb7"}
+            />
           </View>
         </View>
 
@@ -254,11 +283,15 @@ export default class Attendence extends React.Component {
             <Button
               title="Short Break Out"
               onPress={this.handleShortOutPress}
-              color={"#ccc"}
+              color={"#286fb7"}
             />
           </View>
           <View style={styles.shortin}>
-            <Button title="Short Break In" onPress={this.handleShortinPress} />
+            <Button
+              title="Short Break In"
+              onPress={this.handleShortinPress}
+              color={"#286fb7"}
+            />
           </View>
         </View>
         <View style={styles.containerthree}>
@@ -266,13 +299,14 @@ export default class Attendence extends React.Component {
             <Button
               title="Long Break Out"
               onPress={this.handleLongBreakOutPress}
-              //style={{ color: "white" }}
+              color={"#286fb7"}
             />
           </View>
           <View style={styles.longbreakin}>
             <Button
               title="Long Break In"
               onPress={this.handleLongBreakInPress}
+              color={"#286fb7"}
             />
           </View>
         </View>
@@ -281,7 +315,7 @@ export default class Attendence extends React.Component {
             <Button
               title="Logout"
               onPress={this.handleLogOutPress}
-              //style={{ backgroundColor: "#ccc", width: 20, height: 20 }}
+              color={"#286fb7"}
             />
           </View>
         </View>

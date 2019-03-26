@@ -22,8 +22,8 @@ export default class Dashboard extends React.Component {
   static navigationOptions = {
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ color: "blue", textAlign: "center", fontSize: 15 }}>
-          Welcome to TimeClock Application
+        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
+         Alberta Time Clock
         </Text>
       </View>
     )
@@ -72,7 +72,7 @@ export default class Dashboard extends React.Component {
                 <View style={{ marginTop: 50, marginStart: "16%" }}>
                   <MaterialIcons name="timer" size={40} color="#fff" />
                 </View>
-                <Text style={styles.text}>Attenedence</Text>
+                <Text style={styles.text}>Attendance</Text>
               </TouchableOpacity>
             </LinearGradient>
           </View>
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     height: 75,
-    fontSize: 15,
+    fontSize: 20,
     marginStart: 5,
     marginTop: 10,
     color: "#fff"

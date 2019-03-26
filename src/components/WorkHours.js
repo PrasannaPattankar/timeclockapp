@@ -25,17 +25,35 @@ const state = {
     "Break Hours",
     "Productive Hours"
   ],
-  tableData: [["1", "9", "2", "7"], ["2", "10", "2", "8"], ["3", "9", "1", "8"]]
+  tableData: [
+    ["Prasanna", "19", "2", "7"],
+    ["Suresh", "10", "2", "8"],
+    ["Parul", "9", "1", "8"]
+  ]
 };
 export default class WorkHours extends React.Component {
   constructor(props) {
     super(props);
     this.handleWorkHoursPress = this.handleWorkHoursPress.bind(this);
+    this.handleSchedulePress = this.handleSchedulePress.bind(this);
   }
+  static navigationOptions = {
+    headerTitle: (
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
+          Alberta Time Clock
+        </Text>
+      </View>
+    )
+  };
+
   handleWorkHoursPress = () => {
     this.props.navigation.navigate("DatewiseReport_screen");
   };
 
+  handleSchedulePress = () => {
+    this.props.navigation.navigate("Individual_report");
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -46,7 +64,13 @@ export default class WorkHours extends React.Component {
               style={styles.card1}
             >
               <TouchableOpacity onPress={this.handleSchedulePress}>
-                <View style={{ marginTop: 50, marginStart: "27%" }}>
+                <View
+                  style={{
+                    marginTop: 50,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
                   <MaterialIcons name="person" size={40} color="#fff" />
                 </View>
                 <Text style={styles.text}>Individual Reports</Text>
@@ -58,7 +82,13 @@ export default class WorkHours extends React.Component {
               style={styles.card1}
             >
               <TouchableOpacity onPress={this.handleWorkHoursPress}>
-                <View style={{ marginTop: 50, marginStart: "25%" }}>
+                <View
+                  style={{
+                    marginTop: 50,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
                   <Octicons name="report" size={40} color="#fff" />
                 </View>
                 <Text style={styles.text}>DateWise Report</Text>
@@ -256,7 +286,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     height: 75,
-    fontSize: 17,
+    fontSize: 20,
     marginStart: 5,
     marginTop: 10,
     color: "#fff"
