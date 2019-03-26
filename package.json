@@ -7,16 +7,24 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "dateformat": "^3.0.3",
+    "moment": "^2.24.0",
     "react": "16.6.3",
-    "react-native": "0.58.6",
+    "react-dom": "^16.3.2",
+    "react-native": "^0.59.1",
+    "react-native-calendar-picker": "^6.0.0",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-dropdown": "0.0.6",
     "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-hide-show-password-input": "^1.0.7",
+    "react-native-keep-awake": "^4.0.0",
     "react-native-linear-gradient": "^2.5.3",
     "react-native-material-dropdown": "^0.11.1",
+    "react-native-really-awesome-button": "^1.4.2",
     "react-native-table-component": "^1.2.0",
-    "react-native-vector-icons": "^6.4.1",
+    "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.3.2"
   },
   "devDependencies": {

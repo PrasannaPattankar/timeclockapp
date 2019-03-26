@@ -6,6 +6,8 @@ import Schedule from "./src/components/Schedule";
 import Attendence from "./src/components/Attendence";
 import WorkHours from "./src/components/WorkHours";
 import DatewiseReport from "./src/components/DatewiseReport";
+import ScheduleAdd from "./src/components/ScheduleAdd";
+import IndividualReport from "./src/components/IndividualReport";
 import Clock from "./src/components/Clock";
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 import { createAppContainer } from "react-navigation";
@@ -32,6 +34,12 @@ const AppStackNavigator = createStackNavigator(
     },
     DatewiseReport_screen: {
       screen: DatewiseReport
+    },
+    Schedule_form: {
+      screen: ScheduleAdd
+    },
+    Individual_report: {
+      screen: IndividualReport
     }
   },
   {
