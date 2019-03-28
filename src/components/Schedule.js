@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   schedules: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 18,
     marginTop: 25,
     color: "blue"
   },
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     width: "40%",
     flexDirection: "row",
-    marginLeft: "65%"
+    marginLeft: "63%"
     //justifyContent: "center",
     // alignSelf: "center"
   },
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   head: {
-    height: 60,
+    height: 50,
     backgroundColor: "darkblue",
     borderColor: "white",
     flex: 1,

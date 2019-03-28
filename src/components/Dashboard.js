@@ -16,14 +16,14 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import Foundation from "react-native-vector-icons/Foundation";
 import LinearGradient from "react-native-linear-gradient";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import AntDesignn from "react-native-vector-icons/FontAwesome";
+//import AntDesignn from "react-native-vector-icons/FontAwesome";
 
 export default class Dashboard extends React.Component {
   static navigationOptions = {
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
         <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
-         Alberta Time Clock
+          Alberta Time Clock
         </Text>
       </View>
     )
@@ -58,7 +58,12 @@ export default class Dashboard extends React.Component {
             >
               <TouchableOpacity onPress={this.handleSchedulePress}>
                 <View style={{ marginTop: 50, marginStart: "10%" }}>
-                  <FontAwesome name="calendar" size={40} color="#fff" />
+                  <FontAwesome
+                    name="calendar"
+                    size={30}
+                    color="#fff"
+                    style={{ alignItems: "center" }}
+                  />
                 </View>
                 <Text style={styles.text}>Schedule</Text>
               </TouchableOpacity>
@@ -118,7 +123,7 @@ export default class Dashboard extends React.Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    marginTop: "15%",
+    marginTop: "40%",
     backgroundColor: "#fff"
   },
   timeclock: {

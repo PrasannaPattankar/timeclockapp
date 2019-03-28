@@ -32,7 +32,8 @@ export default class IndividualReport extends React.Component {
       isLoading: true,
       sid: "",
 
-      date: ""
+      date: "",
+      dat: ""
     };
   }
 
@@ -65,14 +66,14 @@ export default class IndividualReport extends React.Component {
       );
     }
     return (
-      <View>
+      <View style={styles.container}>
         {/* <Text style={{ textAlign: "center", fontSize: 20 }}>
           Welcome to Individual report
         </Text> */}
         <View style={styles.logocontainer}>
           <Text style={styles.setTextSize}>Employee Name</Text>
           <Picker
-            style={styles.input}
+            style={{ width: 200, alignContent: "center" }}
             selectedValue={this.state.PickerValueHolder}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({ PickerValueHolder: itemValue })
@@ -88,36 +89,65 @@ export default class IndividualReport extends React.Component {
             ))}
           </Picker>
         </View>
-        <Text style={styles.setTextSize}>From</Text>
-        {/* <View style={styles.logocontainer}> */}
-        <DatePicker
-          style={{ width: 200 }}
-          // style={styles.logocontainer}
-          date={this.state.date}
-          mode="date"
-          placeholder="select date"
-          format="DD-MM-YYYY"
-          //minDate="01-01-2019"
-          // maxDate="2016-06-01"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: "absolute",
-              right: 0,
-              top: 4,
-              marginRight: 0
-            },
-            dateInput: {
-              marginLeft: 36
-            }
-            // ... You can check the source to find the other keys.
-          }}
-          onDateChange={date => {
-            this.setState({ date: date });
-          }}
-        />
-        {/* </View> */}
+
+        <View style={styles.logocontainer}>
+          <Text style={styles.setTextSize}>From</Text>
+          <DatePicker
+            style={{ width: 250 }}
+            date={this.state.date}
+            mode="date"
+            placeholder="select date"
+            format="DD-MM-YYYY"
+            //minDate="01-01-2019"
+            // maxDate="2016-06-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                right: 0,
+                top: 4,
+                marginRight: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={date => {
+              this.setState({ date: date });
+            }}
+          />
+        </View>
+        <View style={styles.logocontainer}>
+          <Text style={styles.setTextSize}>To </Text>
+          <DatePicker
+            style={{ width: 250 }}
+            date={this.state.dat}
+            mode="date"
+            placeholder="select date"
+            format="DD-MM-YYYY"
+            //minDate="01-01-2019"
+            // maxDate="2016-06-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                right: 0,
+                top: 4,
+                marginRight: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={date => {
+              this.setState({ dat: date });
+            }}
+          />
+        </View>
         <View style={styles.logocontainer}>
           <TouchableOpacity
             style={styles.btncontainer}
@@ -131,6 +161,107 @@ export default class IndividualReport extends React.Component {
   }
 }
 
+// const styles = StyleSheet.create({
+//   container: {
+//     marginTop: "20%"
+//   },
+//   heading: {
+//     textAlign: "center"
+//     //flexDirection: "row"
+//   },
+//   schedule: {
+//     textAlign: "center",
+//     fontSize: 20,
+//     marginTop: 25,
+//     color: "black"
+//   },
+//   employee: {
+//     textAlign: "center",
+//     fontSize: 15,
+//     // borderRadius: 4,
+//     //borderWidth: 0.5
+//     borderColor: "#d6d7da",
+//     marginLeft: "35%",
+//     width: "40%",
+//     color: "darkblue",
+
+//     borderWidth: 0.1
+//   },
+//   attendence: {
+//     textAlign: "center",
+//     fontSize: 20,
+//     //marginTop: 25,
+//     color: "darkblue",
+//     marginTop: 30
+//   },
+//   schedule: {
+//     marginTop: 25,
+//     width: "40%",
+//     flexDirection: "row",
+//     //justifyContent: "center",
+//     alignSelf: "center"
+//   },
+//   logocontainer: {
+//     marginTop: 0,
+//     marginBottom: 3,
+//     //marginLeft: 5,
+//     flexDirection: "row"
+//   },
+//   MainContainer: {
+//     flex: 1,
+
+//     // Set content's vertical alignment.
+//     justifyContent: "center",
+
+//     // // Set content's horizontal alignment.
+//     alignItems: "center",
+
+//     // Set hex color code here.
+//     backgroundColor: "#fff"
+//   },
+//   setTextSize: {
+//     marginTop: 10,
+//     width: 90,
+//     height: 50,
+//     marginLeft: 0,
+//     fontWeight: "bold",
+//     flexDirection: "row",
+//     color: "#286fb7"
+//   },
+//   input: {
+//     //width: 250,
+//     alignSelf: "stretch",
+//     marginRight: 10,
+//     marginLeft: 20,
+//     height: 40,
+//     width: 230,
+//     borderRadius: 10,
+//     borderColor: "#636466",
+//     borderLeftWidth: 1,
+//     borderRightWidth: 1,
+//     borderTopWidth: 1,
+//     borderBottomWidth: 1,
+//     marginBottom: 10,
+//     fontSize: 15,
+//     paddingHorizontal: 20
+//   },
+//   btncontainer: {
+//     backgroundColor: "#f15a2c",
+//     paddingVertical: 10,
+//     borderRadius: 10,
+//     height: 50,
+//     marginStart: "28%",
+//     width: "45%",
+//     marginTop: 10,
+//     alignItems: "center",
+//     justifyContent: "center"
+//   },
+//   btnText: {
+//     marginLeft: 10,
+//     fontSize: 20,
+//     color: "#fff"
+//   }
+// });
 const styles = StyleSheet.create({
   heading: {
     textAlign: "center"
@@ -213,13 +344,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   btncontainer: {
+    flex: 1,
     backgroundColor: "#f15a2c",
-    paddingVertical: 10,
+    paddingVertical: 15,
     borderRadius: 10,
     height: 50,
-    marginStart: "28%",
+    marginLeft: 10,
+    marginRight: 40,
     width: "45%",
-    marginTop: 10,
     alignItems: "center",
     justifyContent: "center"
   },
