@@ -11,8 +11,10 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
-  Text
+  Text,
+  ScrollView
 } from "react-native";
+import { Table, Row, Rows } from "react-native-table-component";
 import { Header } from "react-native-elements";
 import DatePicker from "react-native-datepicker";
 export default class IndividualReport extends React.Component {
@@ -30,12 +32,46 @@ export default class IndividualReport extends React.Component {
     this.state = {
       PickerValueHolder: "null",
       isLoading: true,
+      isSubmitting: false,
       sid: "",
 
-      date: "",
-      dat: ""
+      Fromdate: "",
+      Todate: "",
+      tableHead: null,
+      tableData: null
     };
   }
+  handleIndividualReport = () => {
+    fetch("https://devportal.albertapayments.com/timeclock/report", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid,
+        user_id: this.state.PickerValueHolder,
+        to_date: this.state.Todate,
+        from_date: this.state.Fromdate
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+        this.setState(
+          {
+            isLoading: false,
+            isSubmitting: true,
+            tableHead: responseJson.table_title,
+            tableData: responseJson.table_data
+          },
+          function() {}
+        );
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   componentDidMount() {
     return fetch(
@@ -57,6 +93,7 @@ export default class IndividualReport extends React.Component {
         console.error(error);
       });
   }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -65,97 +102,129 @@ export default class IndividualReport extends React.Component {
         </View>
       );
     }
+    if (this.state.isSubmitting) {
+      return (
+        <ScrollView>
+          <View style={{ margin: "2%" }}>
+            <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+              <Row
+                data={this.state.tableHead}
+                style={styles.head}
+                textStyle={styles.text}
+              />
+              <Rows data={this.state.tableData} textStyle={styles.text} />
+            </Table>
+          </View>
+        </ScrollView>
+      );
+    }
     return (
       <View style={styles.container}>
         {/* <Text style={{ textAlign: "center", fontSize: 20 }}>
           Welcome to Individual report
         </Text> */}
-        <View style={styles.logocontainer}>
-          <Text style={styles.setTextSize}>Employee Name</Text>
-          <Picker
-            style={{ width: 200, alignContent: "center" }}
-            selectedValue={this.state.PickerValueHolder}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ PickerValueHolder: itemValue })
-            }
-          >
-            <Picker.Item label="Select User" value="0" key="-1" />
-            {this.state.dataSource.data.map((item, key) => (
-              <Picker.Item
-                label={item.user_name}
-                value={item.user_id}
-                key={key}
-              />
-            ))}
-          </Picker>
-        </View>
+        <ScrollView>
+          <View style={styles.sid}>
+            {/* <Text style={styles.sidtext}>Enter SID</Text> */}
+            <TextInput
+              placeholder="SID:1097"
+              onChangeText={TextInputValue =>
+                this.setState({ sid: TextInputValue })
+              }
+            />
+          </View>
+          <View style={styles.logocontainer}>
+            <Text style={styles.setTextSize}>Employee Name</Text>
+            <Picker
+              style={{ width: 200, alignContent: "center" }}
+              selectedValue={this.state.PickerValueHolder}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ PickerValueHolder: itemValue })
+              }
+            >
+              <Picker.Item label="Select User" value="0" key="-1" />
+              {this.state.dataSource.data.map((item, key) => (
+                <Picker.Item
+                  label={item.user_name}
+                  value={item.user_id}
+                  key={key}
+                />
+              ))}
+            </Picker>
+          </View>
 
-        <View style={styles.logocontainer}>
-          <Text style={styles.setTextSize}>From</Text>
-          <DatePicker
-            style={{ width: 250 }}
-            date={this.state.date}
-            mode="date"
-            placeholder="select date"
-            format="DD-MM-YYYY"
-            //minDate="01-01-2019"
-            // maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: "absolute",
-                right: 0,
-                top: 4,
-                marginRight: 0
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-              // ... You can check the source to find the other keys.
-            }}
-            onDateChange={date => {
-              this.setState({ date: date });
-            }}
-          />
-        </View>
-        <View style={styles.logocontainer}>
-          <Text style={styles.setTextSize}>To </Text>
-          <DatePicker
-            style={{ width: 250 }}
-            date={this.state.dat}
-            mode="date"
-            placeholder="select date"
-            format="DD-MM-YYYY"
-            //minDate="01-01-2019"
-            // maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: "absolute",
-                right: 0,
-                top: 4,
-                marginRight: 0
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-              // ... You can check the source to find the other keys.
-            }}
-            onDateChange={date => {
-              this.setState({ dat: date });
-            }}
-          />
-        </View>
-        <View style={styles.logocontainer}>
-          <TouchableOpacity
-            style={styles.btncontainer}
-            onPress={this.saveNPLItemDetails}
-          >
-            <Text style={styles.btnText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.logocontainer}>
+            <Text style={styles.setTextSize}>From</Text>
+            <DatePicker
+              style={{ width: 250 }}
+              date={this.state.Fromdate}
+              mode="date"
+              placeholder="select date"
+              format="YYYY-MM-DD"
+              //minDate="01-01-2019"
+              // maxDate="2016-06-01"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: "absolute",
+                  right: 0,
+                  top: 4,
+                  marginRight: 0
+                },
+                dateInput: {
+                  marginLeft: 36
+                }
+                // ... You can check the source to find the other keys.
+              }}
+              onDateChange={date => {
+                this.setState({ Fromdate: date });
+              }}
+            />
+          </View>
+          <View style={styles.logocontainer}>
+            <Text style={styles.setTextSize}>To </Text>
+            <DatePicker
+              style={{ width: 250 }}
+              date={this.state.Todate}
+              mode="date"
+              placeholder="select date"
+              format="YYYY-MM-DD"
+              //minDate="01-01-2019"
+              // maxDate="2016-06-01"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: "absolute",
+                  right: 0,
+                  top: 4,
+                  marginRight: 0
+                },
+                dateInput: {
+                  marginLeft: 36
+                }
+                // ... You can check the source to find the other keys.
+              }}
+              onDateChange={date => {
+                this.setState({ Todate: date });
+              }}
+            />
+          </View>
+          <View style={styles.containerfour}>
+            <Button
+              title="Submit"
+              onPress={this.handleIndividualReport}
+              color={"#286fb7"}
+              style={{
+                //alignItems: "center",
+                width: "30%",
+                textAlign: "center",
+                margin: 10
+              }}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -299,6 +368,15 @@ const styles = StyleSheet.create({
     //justifyContent: "center",
     alignSelf: "center"
   },
+  containerfour: {
+    flexDirection: "row",
+    //flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    color: "#9d9d9d"
+  },
   logocontainer: {
     marginTop: 0,
     marginBottom: 3,
@@ -359,5 +437,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 20,
     color: "#fff"
-  }
+  },
+  sid: {
+    fontSize: 15,
+    marginTop: 5,
+    marginBottom: 20,
+    alignSelf: "flex-end",
+    marginTop: 0,
+    position: "absolute"
+  },
+  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
+  head: { height: 40, backgroundColor: "#f1f8ff" },
+  text: { margin: 6 }
 });
