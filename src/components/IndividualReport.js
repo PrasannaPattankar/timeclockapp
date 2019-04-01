@@ -12,18 +12,21 @@ import {
   TouchableOpacity,
   TextInput,
   Text,
-  ScrollView
+  ScrollView,
+  Image
 } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
 import { Header } from "react-native-elements";
 import DatePicker from "react-native-datepicker";
 export default class IndividualReport extends React.Component {
   static navigationOptions = {
+    Title: "Home",
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
-          Welcome to Individual report
-        </Text>
+        <Image
+          source={require("../images/poslogo.jpg")}
+          style={{ height: 42, width: "50%", resizeMode: "contain" }}
+        />
       </View>
     )
   };
@@ -109,10 +112,15 @@ export default class IndividualReport extends React.Component {
             <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
               <Row
                 data={this.state.tableHead}
-                style={styles.head}
-                textStyle={styles.text}
+                flexArr={[3, 3, 2, 2, 2, 2]}
+                style={styles.tablehead}
+                textStyle={styles.textHead}
               />
-              <Rows data={this.state.tableData} textStyle={styles.text} />
+              <Rows
+                data={this.state.tableData}
+                flexArr={[3, 3, 2, 2, 2, 2]}
+                textStyle={styles.textData}
+              />
             </Table>
           </View>
         </ScrollView>
@@ -156,7 +164,7 @@ export default class IndividualReport extends React.Component {
           <View style={styles.logocontainer}>
             <Text style={styles.setTextSize}>From</Text>
             <DatePicker
-              style={{ width: 250 }}
+              style={{ width: 200, marginRight: 15 }}
               date={this.state.Fromdate}
               mode="date"
               placeholder="select date"
@@ -185,7 +193,7 @@ export default class IndividualReport extends React.Component {
           <View style={styles.logocontainer}>
             <Text style={styles.setTextSize}>To </Text>
             <DatePicker
-              style={{ width: 250 }}
+              style={{ width: 200, marginRight: 15 }}
               date={this.state.Todate}
               mode="date"
               placeholder="select date"
@@ -230,108 +238,25 @@ export default class IndividualReport extends React.Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     marginTop: "20%"
-//   },
-//   heading: {
-//     textAlign: "center"
-//     //flexDirection: "row"
-//   },
-//   schedule: {
-//     textAlign: "center",
-//     fontSize: 20,
-//     marginTop: 25,
-//     color: "black"
-//   },
-//   employee: {
-//     textAlign: "center",
-//     fontSize: 15,
-//     // borderRadius: 4,
-//     //borderWidth: 0.5
-//     borderColor: "#d6d7da",
-//     marginLeft: "35%",
-//     width: "40%",
-//     color: "darkblue",
-
-//     borderWidth: 0.1
-//   },
-//   attendence: {
-//     textAlign: "center",
-//     fontSize: 20,
-//     //marginTop: 25,
-//     color: "darkblue",
-//     marginTop: 30
-//   },
-//   schedule: {
-//     marginTop: 25,
-//     width: "40%",
-//     flexDirection: "row",
-//     //justifyContent: "center",
-//     alignSelf: "center"
-//   },
-//   logocontainer: {
-//     marginTop: 0,
-//     marginBottom: 3,
-//     //marginLeft: 5,
-//     flexDirection: "row"
-//   },
-//   MainContainer: {
-//     flex: 1,
-
-//     // Set content's vertical alignment.
-//     justifyContent: "center",
-
-//     // // Set content's horizontal alignment.
-//     alignItems: "center",
-
-//     // Set hex color code here.
-//     backgroundColor: "#fff"
-//   },
-//   setTextSize: {
-//     marginTop: 10,
-//     width: 90,
-//     height: 50,
-//     marginLeft: 0,
-//     fontWeight: "bold",
-//     flexDirection: "row",
-//     color: "#286fb7"
-//   },
-//   input: {
-//     //width: 250,
-//     alignSelf: "stretch",
-//     marginRight: 10,
-//     marginLeft: 20,
-//     height: 40,
-//     width: 230,
-//     borderRadius: 10,
-//     borderColor: "#636466",
-//     borderLeftWidth: 1,
-//     borderRightWidth: 1,
-//     borderTopWidth: 1,
-//     borderBottomWidth: 1,
-//     marginBottom: 10,
-//     fontSize: 15,
-//     paddingHorizontal: 20
-//   },
-//   btncontainer: {
-//     backgroundColor: "#f15a2c",
-//     paddingVertical: 10,
-//     borderRadius: 10,
-//     height: 50,
-//     marginStart: "28%",
-//     width: "45%",
-//     marginTop: 10,
-//     alignItems: "center",
-//     justifyContent: "center"
-//   },
-//   btnText: {
-//     marginLeft: 10,
-//     fontSize: 20,
-//     color: "#fff"
-//   }
-// });
 const styles = StyleSheet.create({
+  container: {
+    margin: "2%",
+    alignContent: "center",
+    justifyContent: "center"
+  },
+  tablehead: {
+    backgroundColor: "blue"
+  },
+  textHead: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 14
+  },
+  textData: {
+    textAlign: "center",
+    fontSize: 13,
+    color: "blue"
+  },
   heading: {
     textAlign: "center"
     //flexDirection: "row"
@@ -445,8 +370,5 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     marginTop: 0,
     position: "absolute"
-  },
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
-  head: { height: 40, backgroundColor: "#f1f8ff" },
-  text: { margin: 6 }
+  }
 });

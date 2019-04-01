@@ -43,15 +43,16 @@ export default class Schedule extends React.Component {
   }
 
   static navigationOptions = {
+    Title: "Home",
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
-          Alberta Time Clock
-        </Text>
+        <Image
+          source={require("../images/poslogo.jpg")}
+          style={{ height: 42, width: "50%", resizeMode: "contain" }}
+        />
       </View>
     )
   };
-
   handleAddSchedule = () => {
     this.props.navigation.navigate("Schedule_form");
   };

@@ -12,7 +12,8 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
-  Text
+  Text,
+  Image
 } from "react-native";
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 import { Dropdown } from "react-native-material-dropdown";
@@ -21,11 +22,13 @@ import AwesomeButton from "react-native-really-awesome-button";
 
 export default class Attendence extends React.Component {
   static navigationOptions = {
+    Title: "Home",
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
-          Alberta Time Clock
-        </Text>
+        <Image
+          source={require("../images/poslogo.jpg")}
+          style={{ height: 42, width: "50%", resizeMode: "contain" }}
+        />
       </View>
     )
   };
@@ -219,6 +222,18 @@ export default class Attendence extends React.Component {
         console.error(error);
       });
   };
+
+  // static navigationOptions = {
+  //   Title: "Home",
+  //   headerTitle: (
+  //     <View style={{ flex: 1, alignItems: "center" }}>
+  //       <Image
+  //         source={require("../images/poslogo.jpg")}
+  //         style={{ height: 42, width: "50%", resizeMode: "contain" }}
+  //       />
+  //     </View>
+  //   )
+  // };
 
   render() {
     if (this.state.isLoading) {

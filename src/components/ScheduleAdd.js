@@ -14,6 +14,9 @@ import {
   TextInput,
   Text
 } from "react-native";
+import DatePicker from "react-native-datepicker";
+
+import TimePicker from "react-native-modal-datetime-picker";
 
 export default class ScheduleAdd extends React.Component {
   constructor(props) {
@@ -21,7 +24,11 @@ export default class ScheduleAdd extends React.Component {
     this.state = {
       PickerValueHolder: "null",
       isLoading: true,
-      sid: ""
+      sid: "",
+      StartTime: "",
+      EndTime: "",
+      Fromdate: "",
+      PickerShiftType: "null"
     };
   }
 
@@ -80,6 +87,7 @@ export default class ScheduleAdd extends React.Component {
 
         <View style={styles.logocontainer}>
           <Text style={styles.setTextSize}>Employee Name</Text>
+
           <Picker
             style={styles.input}
             selectedValue={this.state.PickerValueHolder}
@@ -97,48 +105,125 @@ export default class ScheduleAdd extends React.Component {
             ))}
           </Picker>
         </View>
-        <View style={styles.logocontainer}>
-          <Text style={styles.setTextSize}>Shift Date</Text>
 
-          <TextInput
-            style={styles.input}
-            returnKeyType="next"
-            keyboardType="default"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-        </View>
         <View style={styles.logocontainer}>
           <Text style={styles.setTextSize}>Shift Type</Text>
 
-          <TextInput
+          <Picker
             style={styles.input}
-            returnKeyType="next"
-            keyboardType="default"
-            autoCapitalize="none"
-            autoCorrect={false}
+            selectedValue={this.state.PickerShiftType}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({ PickerShiftType: itemValue })
+            }
+          >
+            <Picker.Item label="Select Type" value="0" key="-1" />
+            <Picker.Item label="Full day" value="Full day" />
+            <Picker.Item label="Part Time" value="Part Time" />
+          </Picker>
+        </View>
+
+        <View style={styles.logocontainer}>
+          <Text style={styles.setTextSize}>Shift Date</Text>
+
+          <DatePicker
+            style={{ width: 250 }}
+            date={this.state.Fromdate}
+            mode="date"
+            placeholder="select date"
+            format="MM-DD-YYYY"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                right: 0,
+                top: 4,
+                marginRight: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              },
+              dateText: {
+                fontSize: 25,
+                Color: "#A9A9A9",
+                justifyContent: "flex-start"
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={date => {
+              this.setState({ Fromdate: date });
+            }}
           />
         </View>
+
         <View style={styles.logocontainer}>
           <Text style={styles.setTextSize}>Start Time</Text>
-
-          <TextInput
-            style={styles.input}
-            returnKeyType="next"
-            keyboardType="default"
-            autoCapitalize="none"
-            autoCorrect={false}
+          <DatePicker
+            style={{ width: 250 }}
+            fontSize="35"
+            date={this.state.StartTime}
+            mode="time"
+            androidMode="spinner"
+            placeholder="select time"
+            format="hh:mm:ss"
+            is24Hour={false}
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            iconSource={require("../images/clock.png")}
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                right: 0,
+                top: 4,
+                marginRight: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              },
+              dateText: {
+                fontSize: 25,
+                color: "#000000",
+                justifyContent: "flex-start"
+              }
+            }}
+            onDateChange={STime => {
+              this.setState({ StartTime: STime });
+            }}
           />
         </View>
         <View style={styles.logocontainer}>
           <Text style={styles.setTextSize}>End Time</Text>
-
-          <TextInput
-            style={styles.input}
-            returnKeyType="next"
-            keyboardType="default"
-            autoCapitalize="none"
-            autoCorrect={false}
+          <DatePicker
+            style={{ width: 250 }}
+            date={this.state.EndTime}
+            mode="time"
+            androidMode="spinner"
+            placeholder="select time"
+            format="hh:mm:ss"
+            is24Hour={true}
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            iconSource={require("../images/clock.png")}
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                right: 0,
+                top: 4,
+                marginRight: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              },
+              dateText: {
+                fontSize: 25,
+                color: "#000000",
+                justifyContent: "flex-start"
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={ETime => {
+              this.setState({ EndTime: ETime });
+            }}
           />
         </View>
         <View style={styles.logocontainer}>

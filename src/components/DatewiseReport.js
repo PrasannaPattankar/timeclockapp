@@ -1,15 +1,20 @@
 import React from "react";
 
 import {
-  Platform,
+  AsyncStorage,
+  AppRegistry,
   StyleSheet,
-  Text,
   View,
+  Platform,
+  Picker,
+  ActivityIndicator,
+  Alert,
+  Button,
   TouchableOpacity,
-  Image,
-  SafeAreaView,
+  TextInput,
+  Text,
   ScrollView,
-  Button
+  Image
 } from "react-native";
 
 import {
@@ -22,42 +27,105 @@ import {
   Cell
 } from "react-native-table-component";
 
-const state = {
-  tableHead: ["Employee Name", "Date", "Total Working Hours", "Break Hours"],
-  tableData: [
-    ["Prasanna", "20-Mar-2019", "9", "2"],
-    ["Suresh", "20-Mar-2019", "10", "2"],
-    ["Priya", "20-Mar-2019", "9", "1"]
-  ]
-};
 export default class DateWiseReport extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableHead: null,
+      tableData: null
+    };
+  }
+  handleIndividualReport = () => {
+    fetch("https://devportal.albertapayments.com/timeclock/allreports", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid: this.state.sid
+        // user_id: this.state.PickerValueHolder,
+        // to_date: this.state.Todate,
+        // from_date: this.state.Fromdate
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+        this.setState(
+          {
+            isLoading: false,
+            isSubmitting: true,
+            tableHead: responseJson.table_title,
+            tableData: responseJson.table_data
+          },
+          function() {}
+        );
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
   static navigationOptions = {
+    Title: "Home",
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
-          Alberta Time Clock
-        </Text>
+        <Image
+          source={require("../images/poslogo.jpg")}
+          style={{ height: 42, width: "50%", resizeMode: "contain" }}
+        />
       </View>
     )
   };
-  constructor(props) {
-    super(props);
-  }
 
   render() {
+    if (this.state.isSubmitting) {
+      return (
+        <ScrollView>
+          <View style={{ margin: "2%" }}>
+            <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+              <Row
+                data={this.state.tableHead}
+                style={styles.tablehead}
+                textStyle={styles.textHead}
+                flexArr={[3, 3, 2, 2, 2, 2]}
+              />
+              <Rows
+                data={this.state.tableData}
+                textStyle={styles.textData}
+                flexArr={[3, 3, 2, 2, 2, 2]}
+              />
+            </Table>
+          </View>
+        </ScrollView>
+      );
+    }
     return (
       <View style={styles.container}>
-        <Text style={styles.workreport}>Work Hours Report</Text>
-        <ScrollView style={styles.table}>
-          <Table borderStyle={{ borderWidth: 3, borderColor: "darkblue" }}>
-            <Row
-              data={state.tableHead}
-              style={styles.head}
-              textStyle={styles.headText}
-            />
-            <Rows data={state.tableData} textStyle={styles.text} />
-          </Table>
-        </ScrollView>
+        <View style={styles.logocontainer}>
+          {/* <Text style={styles.sidtext}>Enter SID</Text> */}
+          <Text style={styles.setTextSize}>SID</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="SID:1097"
+            onChangeText={TextInputValue =>
+              this.setState({ sid: TextInputValue })
+            }
+          />
+        </View>
+        <View style={styles.containerfour}>
+          <Button
+            title="Submit"
+            onPress={this.handleIndividualReport}
+            color={"#286fb7"}
+            style={{
+              //alignItems: "center",
+              width: "30%",
+              textAlign: "center",
+              margin: 10
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -71,6 +139,42 @@ const styles = StyleSheet.create({
     //marginBottom: 20,
     backgroundColor: "#fff"
   },
+  tablehead: {
+    backgroundColor: "blue"
+  },
+  textHead: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 14
+  },
+  textData: {
+    textAlign: "center",
+    fontSize: 13,
+    color: "blue"
+  },
+  input: {
+    //width: 250,
+    alignSelf: "stretch",
+    marginRight: 10,
+    marginLeft: 20,
+    height: 40,
+    width: 230,
+    borderRadius: 10,
+    borderColor: "#636466",
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    marginBottom: 10,
+    fontSize: 15,
+    paddingHorizontal: 20
+  },
+  logocontainer: {
+    marginTop: 0,
+    marginBottom: 3,
+    marginRight: 10,
+    flexDirection: "row"
+  },
   workreport: {
     color: "darkblue",
     textAlign: "center",
@@ -78,27 +182,30 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20
   },
-  headText: {
-    color: "white",
-    fontSize: 13,
-    textAlign: "center",
-    fontWeight: "bold"
+  setTextSize: {
+    marginTop: 10,
+    width: 90,
+    height: 50,
+    marginLeft: 0,
+    fontWeight: "bold",
+    flexDirection: "row",
+    color: "#286fb7"
   },
-  head: {
-    height: 60,
-    backgroundColor: "darkblue",
-    borderColor: "white",
-    flex: 1,
-    padding: 15
-  },
-  text: { margin: 6, fontSize: 12, textAlign: "center", color: "darkblue" },
-  table: {
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    backgroundColor: "#ffff"
-  },
+  // headText: {
+  //   color: "white",
+  //   fontSize: 13,
+  //   textAlign: "center",
+  //   fontWeight: "bold"
+  // },
+  // head: {
+  //   height: 60,
+  //   backgroundColor: "darkblue",
+  //   borderColor: "white",
+  //   flex: 1,
+  //   padding: 15
+  // },
+  // text: { margin: 6, fontSize: 12, textAlign: "center", color: "darkblue" },
+
   workHours: {
     //backgroundColor: "blue",
     borderColor: "white",
@@ -112,6 +219,15 @@ const styles = StyleSheet.create({
     margin: 20,
     width: "80%"
     //textAlign: "center"
+  },
+  containerfour: {
+    flexDirection: "row",
+    //flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    color: "#9d9d9d"
   },
   workIHours: {
     //backgroundColor: "blue",

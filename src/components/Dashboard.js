@@ -19,12 +19,23 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 //import AntDesignn from "react-native-vector-icons/FontAwesome";
 
 export default class Dashboard extends React.Component {
+  // static navigationOptions = {
+  //   headerTitle: (
+  //     <View style={{ flex: 1, alignItems: "center" }}>
+  //       <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
+  //         Alberta Time Clock
+  //       </Text>
+  //     </View>
+  //   )
+  // };
   static navigationOptions = {
+    Title: "Home",
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
-          Alberta Time Clock
-        </Text>
+        <Image
+          source={require("../images/poslogo.jpg")}
+          style={{ height: 42, width: "50%", resizeMode: "contain" }}
+        />
       </View>
     )
   };
@@ -57,12 +68,12 @@ export default class Dashboard extends React.Component {
               style={styles.card1}
             >
               <TouchableOpacity onPress={this.handleSchedulePress}>
-                <View style={{ marginTop: 50, marginStart: "10%" }}>
+                <View style={{ marginTop: 50, marginStart: "15%" }}>
                   <FontAwesome
                     name="calendar"
                     size={30}
                     color="#fff"
-                    style={{ alignItems: "center" }}
+                    style={{ alignItems: "center", justifyContent: "center" }}
                   />
                 </View>
                 <Text style={styles.text}>Schedule</Text>
@@ -74,8 +85,13 @@ export default class Dashboard extends React.Component {
               style={styles.card1}
             >
               <TouchableOpacity onPress={this.handleAttendencePress}>
-                <View style={{ marginTop: 50, marginStart: "16%" }}>
-                  <MaterialIcons name="timer" size={40} color="#fff" />
+                <View style={{ marginTop: 50, marginStart: "17%" }}>
+                  <MaterialIcons
+                    name="timer"
+                    size={40}
+                    color="#fff"
+                    style={{ alignItems: "center", justifyContent: "center" }}
+                  />
                 </View>
                 <Text style={styles.text}>Attendance</Text>
               </TouchableOpacity>
@@ -94,7 +110,12 @@ export default class Dashboard extends React.Component {
             >
               <TouchableOpacity onPress={this.handleWorkHoursPress}>
                 <View style={{ marginTop: 50, marginStart: "8%" }}>
-                  <MaterialIcons name="report" size={40} color="#fff" />
+                  <MaterialIcons
+                    name="report"
+                    size={40}
+                    color="#fff"
+                    style={{ alignItems: "center", justifyContent: "center" }}
+                  />
                 </View>
                 <Text style={styles.text}>Reports</Text>
               </TouchableOpacity>
