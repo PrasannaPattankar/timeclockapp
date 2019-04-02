@@ -6,8 +6,11 @@ import {
   View,
   TouchableOpacity,
   SafeAreaView,
-  Image
+  Image,
+  AsyncStorage
 } from "react-native";
+import { NavigationEvents } from "react-navigation";
+import CardView from "react-native-cardview";
 import { Header } from "react-native-elements";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Entypo from "react-native-vector-icons/Entypo";
@@ -28,6 +31,28 @@ export default class Dashboard extends React.Component {
   //     </View>
   //   )
   // };
+  componentDidMount() {
+    AsyncStorage.getItem("Storename").then(datastore => {
+      if (datastore) {
+        //alert(datastore)
+        this.setState({ sname: datastore });
+      }
+    });
+
+    AsyncStorage.getItem("Sid").then(datasid => {
+      if (datasid) {
+        //alert(datasid);
+        this.setState({ sid: datasid });
+      }
+    });
+    AsyncStorage.getItem("Storename").then(datastore => {
+      if (datastore) {
+        //alert(datastore)
+        this.setState({ sname: datastore });
+      }
+    });
+  }
+
   static navigationOptions = {
     Title: "Home",
     headerTitle: (
@@ -41,6 +66,10 @@ export default class Dashboard extends React.Component {
   };
   constructor(props) {
     super(props);
+    this.state = {
+      sid: "",
+      sname: ""
+    };
     this.handleWorkHoursPress = this.handleWorkHoursPress.bind(this);
   }
 
@@ -57,10 +86,19 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <View style={styles.header}> */}
-
-        {/* <Text style={styles.timeclock}>Welcome to TimeClock Application</Text> */}
-        {/* </View> */}
+        <NavigationEvents onDidFocus={() => this.componentDidMount()} />
+        <CardView
+          cardElevation={6}
+          cardMaxElevation={1}
+          cornerRadius={0}
+          style={styles.cardd}
+        >
+          <View style={{ marginTop: 5, marginStart: 0 }}>
+            <Text style={styles.storename}>
+              {this.state.sname}[{this.state.sid}]
+            </Text>
+          </View>
+        </CardView>
         <SafeAreaView style={styles.safeAreaView}>
           <View flexDirection="row">
             <LinearGradient
