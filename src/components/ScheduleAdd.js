@@ -52,7 +52,38 @@ export default class ScheduleAdd extends React.Component {
         console.error(error);
       });
   }
-
+  handleAddSchedule = () => {
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/addschedule", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            shift_date: this.state.Fromdate,
+            shift_type: this.state.PickerShiftType,
+            start_time: this.state.StartTime,
+            end_time: this.state.EndTime
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            if (responseJson.status == "success") {
+              Alert.alert(JSON.stringify(responseJson.message));
+            } else {
+              Alert.alert(JSON.stringify(responseJson.error));
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
+  };
   static navigationOptions = {
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
@@ -130,7 +161,7 @@ export default class ScheduleAdd extends React.Component {
             date={this.state.Fromdate}
             mode="date"
             placeholder="select date"
-            format="MM-DD-YYYY"
+            format="YYYY-MM-DD"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -165,7 +196,7 @@ export default class ScheduleAdd extends React.Component {
             mode="time"
             androidMode="spinner"
             placeholder="select time"
-            format="hh:mm:ss"
+            format="HH:mm:ss"
             is24Hour={false}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
@@ -199,7 +230,7 @@ export default class ScheduleAdd extends React.Component {
             mode="time"
             androidMode="spinner"
             placeholder="select time"
-            format="hh:mm:ss"
+            format="HH:mm:ss"
             is24Hour={true}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
@@ -229,7 +260,7 @@ export default class ScheduleAdd extends React.Component {
         <View style={styles.logocontainer}>
           <TouchableOpacity
             style={styles.btncontainer}
-            onPress={this.saveNPLItemDetails}
+            onPress={this.handleAddSchedule}
           >
             <Text style={styles.btnText}>Save</Text>
           </TouchableOpacity>

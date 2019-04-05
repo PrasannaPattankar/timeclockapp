@@ -91,8 +91,7 @@ export default class MyProject extends Component {
     AsyncStorage.setItem("Sid", JSON.stringify(SID));
     AsyncStorage.setItem("sales", JSON.stringify(sales));
     AsyncStorage.setItem("delete", JSON.stringify(deletes));
-    // alert(SID)
-    //getReactNativeHost().getReactInstanceManager().getDevSupportManager().handleReloadJS();
+
     this.props.navigation.navigate("Dashboard_screen");
   }
 

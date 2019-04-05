@@ -45,35 +45,39 @@ export default class IndividualReport extends React.Component {
     };
   }
   handleIndividualReport = () => {
-    fetch("https://devportal.albertapayments.com/timeclock/report", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid: this.state.sid,
-        user_id: this.state.PickerValueHolder,
-        to_date: this.state.Todate,
-        from_date: this.state.Fromdate
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log(responseJson);
-        this.setState(
-          {
-            isLoading: false,
-            isSubmitting: true,
-            tableHead: responseJson.table_title,
-            tableData: responseJson.table_data
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/report", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
           },
-          function() {}
-        );
-      })
-      .catch(error => {
-        console.error(error);
-      });
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            to_date: this.state.Todate,
+            from_date: this.state.Fromdate
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            console.log(responseJson);
+            this.setState(
+              {
+                isLoading: false,
+                isSubmitting: true,
+                tableHead: responseJson.table_title,
+                tableData: responseJson.table_data
+              },
+              function() {}
+            );
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
 
   componentDidMount() {
@@ -128,23 +132,11 @@ export default class IndividualReport extends React.Component {
     }
     return (
       <View style={styles.container}>
-        {/* <Text style={{ textAlign: "center", fontSize: 20 }}>
-          Welcome to Individual report
-        </Text> */}
         <ScrollView>
-          <View style={styles.sid}>
-            {/* <Text style={styles.sidtext}>Enter SID</Text> */}
-            <TextInput
-              placeholder="SID:1097"
-              onChangeText={TextInputValue =>
-                this.setState({ sid: TextInputValue })
-              }
-            />
-          </View>
           <View style={styles.logocontainer}>
             <Text style={styles.setTextSize}>Employee Name</Text>
             <Picker
-              style={{ width: 200, alignContent: "center" }}
+              style={{ width: 200, marginLeft: 25 }}
               selectedValue={this.state.PickerValueHolder}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({ PickerValueHolder: itemValue })
@@ -245,7 +237,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   tablehead: {
-    backgroundColor: "blue"
+    backgroundColor: "#0000FF"
   },
   textHead: {
     textAlign: "center",
@@ -305,7 +297,7 @@ const styles = StyleSheet.create({
   logocontainer: {
     marginTop: 0,
     marginBottom: 3,
-    marginLeft: 10,
+    marginLeft: 30,
     flexDirection: "row"
   },
   MainContainer: {

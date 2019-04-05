@@ -70,170 +70,182 @@ export default class Attendence extends React.Component {
   }
 
   handleLogInPress = () => {
-    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid: this.state.sid,
-        user_id: this.state.PickerValueHolder,
-        action_tag: "login"
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.status == "ok") {
-          Alert.alert(JSON.stringify(responseJson.message));
-        } else {
-          alert(JSON.stringify(responseJson.error));
-          //alert("You have already Logged In for today");
-        }
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            action_tag: "login"
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            if (responseJson.status == "ok") {
+              Alert.alert(JSON.stringify(responseJson.message));
+            } else {
+              alert(JSON.stringify(responseJson.error));
+              //alert("You have already Logged In for today");
+            }
 
-        //  if(this.state.message.status=='error')
-      })
-      .catch(error => {
-        console.error(error);
-      });
+            //  if(this.state.message.status=='error')
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
   handleLogOutPress = () => {
-    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid: this.state.sid,
-        user_id: this.state.PickerValueHolder,
-        action_tag: "logout"
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.status == "ok") {
-          Alert.alert(JSON.stringify(responseJson.message));
-        } else {
-          alert(JSON.stringify(responseJson.error));
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            action_tag: "logout"
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            if (responseJson.status == "ok") {
+              Alert.alert(JSON.stringify(responseJson.message));
+            } else {
+              alert(JSON.stringify(responseJson.error));
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
   handleShortinPress = () => {
-    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid: this.state.sid,
-        user_id: this.state.PickerValueHolder,
-        action_tag: "short_break_in"
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.status == "ok") {
-          Alert.alert(JSON.stringify(responseJson.message));
-        } else {
-          alert(JSON.stringify(responseJson.error));
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            action_tag: "short_break_in"
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            if (responseJson.status == "ok") {
+              Alert.alert(JSON.stringify(responseJson.message));
+            } else {
+              alert(JSON.stringify(responseJson.error));
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
   handleShortOutPress = () => {
-    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid: this.state.sid,
-        user_id: this.state.PickerValueHolder,
-        action_tag: "short_break_out"
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.status == "ok") {
-          Alert.alert(JSON.stringify(responseJson.message));
-        } else {
-          alert(JSON.stringify(responseJson.error));
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            action_tag: "short_break_out"
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            if (responseJson.status == "ok") {
+              Alert.alert(JSON.stringify(responseJson.message));
+            } else {
+              alert(JSON.stringify(responseJson.error));
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
   handleLongBreakOutPress = () => {
-    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid: this.state.sid,
-        user_id: this.state.PickerValueHolder,
-        action_tag: "long_break_out"
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.status == "ok") {
-          Alert.alert(JSON.stringify(responseJson.message));
-        } else {
-          alert(JSON.stringify(responseJson.error));
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            action_tag: "long_break_out"
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            if (responseJson.status == "ok") {
+              Alert.alert(JSON.stringify(responseJson.message));
+            } else {
+              alert(JSON.stringify(responseJson.error));
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
   handleLongBreakInPress = () => {
-    fetch("https://devportal.albertapayments.com/timeclock/attendance", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid: this.state.sid,
-        user_id: this.state.PickerValueHolder,
-        action_tag: "long_break_in"
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.status == "ok") {
-          alert("Succesfully Long break in");
-        } else {
-          alert(JSON.stringify(responseJson.error));
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+        fetch("https://devportal.albertapayments.com/timeclock/attendance", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            sid: sid,
+            user_id: this.state.PickerValueHolder,
+            action_tag: "long_break_in"
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            if (responseJson.status == "ok") {
+              alert("Succesfully Long break in");
+            } else {
+              alert(JSON.stringify(responseJson.error));
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
-
-  // static navigationOptions = {
-  //   Title: "Home",
-  //   headerTitle: (
-  //     <View style={{ flex: 1, alignItems: "center" }}>
-  //       <Image
-  //         source={require("../images/poslogo.jpg")}
-  //         style={{ height: 42, width: "50%", resizeMode: "contain" }}
-  //       />
-  //     </View>
-  //   )
-  // };
 
   render() {
     if (this.state.isLoading) {
@@ -246,15 +258,15 @@ export default class Attendence extends React.Component {
 
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.sid}>
-          {/* <Text style={styles.sidtext}>Enter SID</Text> */}
+        {/* <View style={styles.sid}>
+          
           <TextInput
             placeholder="SID:1097"
             onChangeText={TextInputValue =>
               this.setState({ sid: TextInputValue })
             }
           />
-        </View>
+        </View> */}
 
         <Text style={styles.attendence}>Attendance</Text>
 
@@ -278,60 +290,61 @@ export default class Attendence extends React.Component {
         <View style={styles.employees}>
           <Clock />
         </View>
-
-        <View style={styles.container}>
-          <View style={styles.login}>
-            {/* <AwesomeButton progress onPress={this.handleLogInPress}>
+        <View style={styles.timeContainer}>
+          <View style={styles.container}>
+            <View style={styles.login}>
+              {/* <AwesomeButton progress onPress={this.handleLogInPress}>
               Login
             </AwesomeButton> */}
 
-            <Button
-              title="Login"
-              onPress={this.handleLogInPress}
-              color={"#286fb7"}
-            />
+              <Button
+                title="Login"
+                onPress={this.handleLogInPress}
+                color={"#286fb7"}
+              />
+            </View>
           </View>
-        </View>
 
-        <View style={styles.containertwo}>
-          <View style={styles.shortout}>
-            <Button
-              title="Short Break Out"
-              onPress={this.handleShortOutPress}
-              color={"#286fb7"}
-            />
+          <View style={styles.containertwo}>
+            <View style={styles.shortout}>
+              <Button
+                title="Short Break Out"
+                onPress={this.handleShortOutPress}
+                color={"#286fb7"}
+              />
+            </View>
+            <View style={styles.shortin}>
+              <Button
+                title="Short Break In"
+                onPress={this.handleShortinPress}
+                color={"#286fb7"}
+              />
+            </View>
           </View>
-          <View style={styles.shortin}>
-            <Button
-              title="Short Break In"
-              onPress={this.handleShortinPress}
-              color={"#286fb7"}
-            />
+          <View style={styles.containerthree}>
+            <View style={styles.longbreakout}>
+              <Button
+                title="Long Break Out"
+                onPress={this.handleLongBreakOutPress}
+                color={"#286fb7"}
+              />
+            </View>
+            <View style={styles.longbreakin}>
+              <Button
+                title="Long Break In"
+                onPress={this.handleLongBreakInPress}
+                color={"#286fb7"}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.containerthree}>
-          <View style={styles.longbreakout}>
-            <Button
-              title="Long Break Out"
-              onPress={this.handleLongBreakOutPress}
-              color={"#286fb7"}
-            />
-          </View>
-          <View style={styles.longbreakin}>
-            <Button
-              title="Long Break In"
-              onPress={this.handleLongBreakInPress}
-              color={"#286fb7"}
-            />
-          </View>
-        </View>
-        <View style={styles.containerfour}>
-          <View style={styles.logout}>
-            <Button
-              title="Logout"
-              onPress={this.handleLogOutPress}
-              color={"#286fb7"}
-            />
+          <View style={styles.containerfour}>
+            <View style={styles.logout}>
+              <Button
+                title="Logout"
+                onPress={this.handleLogOutPress}
+                color={"#286fb7"}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -341,6 +354,9 @@ export default class Attendence extends React.Component {
 const styles = StyleSheet.create({
   mainContainer: {
     //marginTop: 50
+  },
+  timeContainer: {
+    marginTop: "10%"
   },
   attendence: {
     textAlign: "center",

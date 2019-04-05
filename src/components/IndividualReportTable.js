@@ -19,15 +19,7 @@ import { Table, Row, Rows } from "react-native-table-component";
 export default class IndividualReportTable extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   tableHead: ["Employee Name", "Date", "Login Time", "Logout Time"]
-    //   //   tableData: [
-    //   //     ["1", "2", "3", "4"],
-    //   //     ["a", "b", "c", "d"],
-    //   //     ["1", "2", "3", ""],
-    //   //     ["a", "b", "c", "d"]
-    //   //   ]
-    // };
+
     this.state = {
       tableHead: null,
       tableData: null
@@ -77,6 +69,6 @@ export default class IndividualReportTable extends React.Component {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
-  head: { height: 40, backgroundColor: "#f1f8ff" },
+  head: { height: 40, backgroundColor: "#FFFF00" },
   text: { margin: 6 }
 });

@@ -8,6 +8,7 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  AsyncStorage,
   Button
 } from "react-native";
 import {
@@ -22,26 +23,49 @@ import {
 
 //import { DropDown } from "react-native-dropdown";
 
-const state = {
-  tableHead: [
-    "Employee Name",
-    "Shift Date",
-    "Shift Type",
-    "Start Time",
-    "End Time"
-  ],
-  tableData: [
-    ["Suresh", "20-Mar-2019", "Morning Shift", "10AM", "6.00PM"],
-    ["Rahul", "20-Mar-2019", "Afternoon Shift", "12PM", "8.00PM"]
-  ]
-};
 
 export default class Schedule extends React.Component {
   constructor(props) {
     super(props);
     this.handleAddSchedule = this.handleAddSchedule.bind(this);
+    this.state = {
+      tableHead: null,
+      tableData: null
+    };
   }
-
+  componentDidMount(){this.handleSchedulelReport()}
+  handleSchedulelReport = () => {
+    AsyncStorage.getItem("Sid").then(sid => {
+      if (sid) {
+       // alert(sid);
+    fetch("https://devportal.albertapayments.com/timeclock/getschedule", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sid:sid   
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+      //  alert(responseJson.table_title);
+        this.setState(
+          {
+            isLoading: false,
+            isSubmitting: true,
+            tableHead: responseJson.table_title,
+            tableData: responseJson.table_data
+          },
+          function() {}
+        );
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }})
+  };
   static navigationOptions = {
     Title: "Home",
     headerTitle: (
@@ -71,14 +95,21 @@ export default class Schedule extends React.Component {
           />
         </View>
         <ScrollView style={styles.table}>
-          <Table borderStyle={{ borderWidth: 3, borderColor: "darkblue" }}>
-            <Row
-              data={state.tableHead}
-              style={styles.head}
-              textStyle={styles.headText}
-            />
-            <Rows data={state.tableData} textStyle={styles.text} />
-          </Table>
+        <View style={{ margin: "2%" }}>
+            <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+              <Row
+                data={this.state.tableHead}
+                style={styles.tablehead}
+                textStyle={styles.textHead}
+                flexArr={[5, 3, 3, 3, 3]}
+              />
+              <Rows
+                data={this.state.tableData}
+                textStyle={styles.textData}
+                flexArr={[5, 3, 3, 3, 3]}
+              />
+            </Table>
+          </View>
         </ScrollView>
       </View>
     );
@@ -152,6 +183,19 @@ const styles = StyleSheet.create({
     margin: 20,
     width: "80%"
     //textAlign: "center"
+  },
+  tablehead: {
+    backgroundColor: "blue"
+  },
+  textHead: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 14
+  },
+  textData: {
+    textAlign: "center",
+    fontSize: 13,
+    color: "blue"
   },
   workIHours: {
     //backgroundColor: "blue",

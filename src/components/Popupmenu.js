@@ -72,10 +72,6 @@ export default class Menuu extends React.Component {
             </TouchableOpacity>
           }
         >
-          {/* <MenuItem onPress={this.role}>
-            {this.state.fname}({this.state.role_name}){" "}
-          </MenuItem> */}
-
           <MenuItem onPress={this.Store}>Select Store</MenuItem>
           <MenuDivider />
           <MenuItem onPress={this.logout}>Logout</MenuItem>

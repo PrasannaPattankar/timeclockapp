@@ -44,9 +44,6 @@ export default class DateWiseReport extends React.Component {
       },
       body: JSON.stringify({
         sid: this.state.sid
-        // user_id: this.state.PickerValueHolder,
-        // to_date: this.state.Todate,
-        // from_date: this.state.Fromdate
       })
     })
       .then(response => response.json())

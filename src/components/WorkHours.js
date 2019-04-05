@@ -17,6 +17,7 @@ import LinearGradient from "react-native-linear-gradient";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Octicons from "react-native-vector-icons/Octicons";
 import AntDesignn from "react-native-vector-icons/FontAwesome";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const state = {
   tableHead: [
@@ -38,14 +39,25 @@ export default class WorkHours extends React.Component {
     this.handleSchedulePress = this.handleSchedulePress.bind(this);
   }
   static navigationOptions = {
+    Title: "Home",
     headerTitle: (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
-          Alberta Time Clock
-        </Text>
+        <Image
+          source={require("../images/poslogo.jpg")}
+          style={{ height: 42, width: "50%", resizeMode: "contain" }}
+        />
       </View>
     )
   };
+  // static navigationOptions = {
+  //   headerTitle: (
+  //     <View style={{ flex: 1, alignItems: "center" }}>
+  //       <Text style={{ color: "blue", textAlign: "center", fontSize: 20 }}>
+  //         Alberta Time Clock
+  //       </Text>
+  //     </View>
+  //   )
+  // };
 
   handleWorkHoursPress = () => {
     this.props.navigation.navigate("DatewiseReport_screen");
@@ -95,6 +107,34 @@ export default class WorkHours extends React.Component {
               </TouchableOpacity>
             </LinearGradient>
           </View>
+          <View
+            flexDirection="row"
+            marginBottom={80}
+            marginStart={"25%"}
+            marginRight={"25%"}
+          >
+            <LinearGradient
+              colors={["#f15a2c", "#f15a2c", "#f15a2c", "#f15a2c", "#f15a2c"]}
+              style={styles.card1}
+            >
+              <TouchableOpacity onPress={this.handleWorkHoursPress}>
+                <View
+                  style={{
+                    marginTop: 50,
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="calendar-week"
+                    size={40}
+                    color="#fff"
+                  />
+                </View>
+                <Text style={styles.text}>Weekly Report</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -104,7 +144,7 @@ export default class WorkHours extends React.Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    marginTop: "15%",
+    marginTop: "40%",
     backgroundColor: "#fff"
   },
   timeclock: {
@@ -146,7 +186,6 @@ const styles = StyleSheet.create({
     margin: 10
   },
   card1: {
-    // backgroundColor: '#16a0db',
     alignItems: "center",
     borderRadius: 3,
     justifyContent: "center",
@@ -213,10 +252,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   },
 
-  // text: {
-  //   color: "#fff",
-  //   fontSize : 20
-  // },
   storename: {
     marginStart: 18,
     color: "#000",
