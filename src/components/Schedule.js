@@ -23,7 +23,6 @@ import {
 
 //import { DropDown } from "react-native-dropdown";
 
-
 export default class Schedule extends React.Component {
   constructor(props) {
     super(props);
@@ -33,38 +32,41 @@ export default class Schedule extends React.Component {
       tableData: null
     };
   }
-  componentDidMount(){this.handleSchedulelReport()}
+  componentDidMount() {
+    this.handleSchedulelReport();
+  }
   handleSchedulelReport = () => {
     AsyncStorage.getItem("Sid").then(sid => {
       if (sid) {
-       // alert(sid);
-    fetch("https://devportal.albertapayments.com/timeclock/getschedule", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sid:sid   
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-      //  alert(responseJson.table_title);
-        this.setState(
-          {
-            isLoading: false,
-            isSubmitting: true,
-            tableHead: responseJson.table_title,
-            tableData: responseJson.table_data
+        // alert(sid);
+        fetch("https://devportal.albertapayments.com/timeclock/getschedule", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
           },
-          function() {}
-        );
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    }})
+          body: JSON.stringify({
+            sid: sid
+          })
+        })
+          .then(response => response.json())
+          .then(responseJson => {
+            //  alert(responseJson.table_title);
+            this.setState(
+              {
+                isLoading: false,
+                isSubmitting: true,
+                tableHead: responseJson.table_title,
+                tableData: responseJson.table_data
+              },
+              function() {}
+            );
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
   };
   static navigationOptions = {
     Title: "Home",
@@ -91,11 +93,11 @@ export default class Schedule extends React.Component {
           <Button
             title="Add Schedule"
             onPress={this.handleAddSchedule}
-            color="darkblue"
+            color="#3386D6"
           />
         </View>
         <ScrollView style={styles.table}>
-        <View style={{ margin: "2%" }}>
+          <View style={{ margin: "2%" }}>
             <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
               <Row
                 data={this.state.tableHead}

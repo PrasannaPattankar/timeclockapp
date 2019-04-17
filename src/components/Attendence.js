@@ -16,9 +16,10 @@ import {
   Image
 } from "react-native";
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
-import { Dropdown } from "react-native-material-dropdown";
+
 import Clock from "./Clock";
 import AwesomeButton from "react-native-really-awesome-button";
+import { Dropdown } from "react-native-material-dropdown";
 
 export default class Attendence extends React.Component {
   static navigationOptions = {
@@ -258,16 +259,6 @@ export default class Attendence extends React.Component {
 
     return (
       <View style={styles.mainContainer}>
-        {/* <View style={styles.sid}>
-          
-          <TextInput
-            placeholder="SID:1097"
-            onChangeText={TextInputValue =>
-              this.setState({ sid: TextInputValue })
-            }
-          />
-        </View> */}
-
         <Text style={styles.attendence}>Attendance</Text>
 
         <View style={styles.employee}>

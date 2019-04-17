@@ -113,7 +113,7 @@ export default class IndividualReport extends React.Component {
       return (
         <ScrollView>
           <View style={{ margin: "2%" }}>
-            <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+            <Table borderStyle={{ borderWidth: 2, borderColor: "#d6d7da" }}>
               <Row
                 data={this.state.tableHead}
                 flexArr={[3, 3, 2, 2, 2, 2]}
@@ -131,100 +131,111 @@ export default class IndividualReport extends React.Component {
       );
     }
     return (
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.logocontainer}>
-            <Text style={styles.setTextSize}>Employee Name</Text>
-            <Picker
-              style={{ width: 200, marginLeft: 25 }}
-              selectedValue={this.state.PickerValueHolder}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ PickerValueHolder: itemValue })
-              }
-            >
-              <Picker.Item label="Select User" value="0" key="-1" />
-              {this.state.dataSource.data.map((item, key) => (
-                <Picker.Item
-                  label={item.user_name}
-                  value={item.user_id}
-                  key={key}
-                />
-              ))}
-            </Picker>
-          </View>
+      <View
+        style={{
+          alignContent: "center",
+          alignItems: "center",
+          marginTop: "10%",
+          marginLeft: "5%"
+        }}
+      >
+        <View style={styles.logocontainer}>
+          <Text style={styles.setTextSize}>Employee Name</Text>
+          <Picker
+            style={{ width: 200, marginLeft: 20 }}
+            selectedValue={this.state.PickerValueHolder}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({ PickerValueHolder: itemValue })
+            }
+          >
+            <Picker.Item label="Select User" value="0" key="-1" />
+            {this.state.dataSource.data.map((item, key) => (
+              <Picker.Item
+                label={item.user_name}
+                value={item.user_id}
+                key={key}
+              />
+            ))}
+          </Picker>
+        </View>
 
-          <View style={styles.logocontainer}>
-            <Text style={styles.setTextSize}>From</Text>
-            <DatePicker
-              style={{ width: 200, marginRight: 15 }}
-              date={this.state.Fromdate}
-              mode="date"
-              placeholder="select date"
-              format="YYYY-MM-DD"
-              //minDate="01-01-2019"
-              // maxDate="2016-06-01"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: "absolute",
-                  right: 0,
-                  top: 4,
-                  marginRight: 0
-                },
-                dateInput: {
-                  marginLeft: 36
-                }
-                // ... You can check the source to find the other keys.
-              }}
-              onDateChange={date => {
-                this.setState({ Fromdate: date });
-              }}
-            />
-          </View>
-          <View style={styles.logocontainer}>
-            <Text style={styles.setTextSize}>To </Text>
-            <DatePicker
-              style={{ width: 200, marginRight: 15 }}
-              date={this.state.Todate}
-              mode="date"
-              placeholder="select date"
-              format="YYYY-MM-DD"
-              //minDate="01-01-2019"
-              // maxDate="2016-06-01"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: "absolute",
-                  right: 0,
-                  top: 4,
-                  marginRight: 0
-                },
-                dateInput: {
-                  marginLeft: 36
-                }
-                // ... You can check the source to find the other keys.
-              }}
-              onDateChange={date => {
-                this.setState({ Todate: date });
-              }}
-            />
-          </View>
-          <View style={styles.containerfour}>
-            <Button
-              title="Submit"
-              onPress={this.handleIndividualReport}
-              color={"#286fb7"}
-              style={{
-                //alignItems: "center",
-                width: "30%",
-                textAlign: "center",
-                margin: 10
-              }}
-            />
-          </View>
-        </ScrollView>
+        <View style={styles.logocontainer}>
+          <Text style={styles.setTextSize}>From</Text>
+          <DatePicker
+            style={{ width: 200, marginRight: 20 }}
+            date={this.state.Fromdate}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            //minDate="01-01-2019"
+            // maxDate="2016-06-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                right: 0,
+                top: 4,
+                marginRight: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={date => {
+              this.setState({ Fromdate: date });
+            }}
+          />
+        </View>
+        <View style={styles.logocontainer}>
+          <Text style={styles.setTextSize}>To </Text>
+          <DatePicker
+            style={{ width: 200, marginRight: 20 }}
+            date={this.state.Todate}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            //minDate="01-01-2019"
+            // maxDate="2016-06-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                right: 0,
+                top: 4,
+                marginRight: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={date => {
+              this.setState({ Todate: date });
+            }}
+          />
+        </View>
+        <View style={styles.containerfour}>
+          <Button
+            title="Submit"
+            onPress={this.handleIndividualReport}
+            color={"#286fb7"}
+            style={{
+              //alignItems: "center",
+              width: "40%",
+              textAlign: "center",
+              marginTop: 10
+            }}
+          />
+          {/* <TouchableOpacity
+            style={styles.btncontainer}
+            onPress={this.handleIndividualReport}
+          >
+            <Text style={styles.btntext}>Submit</Text>
+          </TouchableOpacity> */}
+        </View>
       </View>
     );
   }
@@ -232,12 +243,16 @@ export default class IndividualReport extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    margin: "2%",
+    marginLeft: "4%",
+    marginRight: "4%",
+    marginBottom: "4%",
+    marginTop: "10%",
     alignContent: "center",
     justifyContent: "center"
   },
   tablehead: {
-    backgroundColor: "#0000FF"
+    // backgroundColor: "#0000FF"
+    backgroundColor: "#3386D6"
   },
   textHead: {
     textAlign: "center",
@@ -247,7 +262,7 @@ const styles = StyleSheet.create({
   textData: {
     textAlign: "center",
     fontSize: 13,
-    color: "blue"
+    color: "#3386D6"
   },
   heading: {
     textAlign: "center"
@@ -286,18 +301,15 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   containerfour: {
-    flexDirection: "row",
-    //flex: 1,
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
+    //marginTop: 10,
     color: "#9d9d9d"
   },
   logocontainer: {
     marginTop: 0,
     marginBottom: 3,
-    marginLeft: 30,
+    marginRight: 30,
     flexDirection: "row"
   },
   MainContainer: {

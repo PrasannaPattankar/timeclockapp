@@ -80,7 +80,7 @@ export default class DateWiseReport extends React.Component {
       return (
         <ScrollView>
           <View style={{ margin: "2%" }}>
-            <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+            <Table borderStyle={{ borderWidth: 2, borderColor: "#d6d7da" }}>
               <Row
                 data={this.state.tableHead}
                 style={styles.tablehead}
@@ -98,7 +98,7 @@ export default class DateWiseReport extends React.Component {
       );
     }
     return (
-      <View style={styles.container}>
+      <View style={{ alignContent: "center", alignItems: "center" }}>
         <View style={styles.logocontainer}>
           {/* <Text style={styles.sidtext}>Enter SID</Text> */}
           <Text style={styles.setTextSize}>SID</Text>
@@ -137,17 +137,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   tablehead: {
-    backgroundColor: "blue"
+    backgroundColor: "#3386D6"
   },
   textHead: {
     textAlign: "center",
     color: "white",
-    fontSize: 14
+    fontSize: 13
   },
   textData: {
     textAlign: "center",
     fontSize: 13,
-    color: "blue"
+    color: "#3386D6"
   },
   input: {
     //width: 250,
